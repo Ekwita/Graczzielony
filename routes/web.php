@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Public\Ranking\RankingController;
 use App\Http\Controllers\Public\Voting\SearchGameController;
 use App\Http\Controllers\Public\Voting\VoteController;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,8 @@ Route::get('dashboard', function () {
 Route::get('/search', [SearchGameController::class, 'search'])->name('game.search');
 Route::get('/vote', [VoteController::class, 'index'])->name('vote.index');
 Route::post('/vote/store', [VoteController::class, 'store'])->name('vote.store');
+
+Route::get('/ranking', [RankingController::class, 'index'])->name('ranking.index');
 
 Route::inertia('/about', 'About');
 

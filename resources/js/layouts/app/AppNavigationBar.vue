@@ -24,7 +24,7 @@ const isBlogOpen = ref(false);
                         <Link href="/vote" class="nav-link" active-class="active">Vote for Best Game</Link>
                     </li>
                     <li class="nav-item">
-                        <Link href="#" class="nav-link" active-class="active">Current Voting Results</Link>
+                        <Link href="/ranking" class="nav-link" active-class="active">Current Voting Results</Link>
                     </li>
                     <li class="nav-item">
                         <Link href="#" class="nav-link" active-class="active">Previous Voting Results

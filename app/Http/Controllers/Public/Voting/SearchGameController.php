@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Public\Voting;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Inertia\Inertia;
 
 class SearchGameController extends Controller
 {

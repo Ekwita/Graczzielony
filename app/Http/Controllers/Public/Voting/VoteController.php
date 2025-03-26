@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Public\Voting;
 use App\Http\Controllers\Controller;
 use App\Models\Game;
 use App\Models\Vote;
-use Carbon\Traits\ToStringFormat;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -16,7 +14,7 @@ class VoteController extends Controller
 
     public function index(): Response
     {
-        return Inertia::render('voting/Vote');
+        return Inertia::render('ranking/Vote');
     }
 
     public function store(Request $request): void
