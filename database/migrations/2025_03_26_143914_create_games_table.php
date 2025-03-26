@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('bgg_id');
             $table->string('name');
+            $table->string('hyperlink');
             $table->integer('score')->default(0);
             $table->string('image')->nullable();
             $table->integer('votes')->default(0);
