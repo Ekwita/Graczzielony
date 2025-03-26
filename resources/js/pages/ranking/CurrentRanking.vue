@@ -1,6 +1,5 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
-import { defineProps } from 'vue';
 import AppNavigationBar from '@/layouts/app/AppNavigationBar.vue';
 
 defineProps({
