@@ -1,10 +1,9 @@
 <script setup>
-import { ref, computed } from 'vue';
-import { Head, usePage, useForm } from '@inertiajs/vue3';
+import { ref, computed, watch } from 'vue';
+import { Head, useForm } from '@inertiajs/vue3';
 import AppNavigationBar from '@/layouts/app/AppNavigationBar.vue';
 import axios from 'axios';
 
-const page = usePage();
 const username = ref('');
 const email = ref('');
 const queries = ref(['', '', '']);
@@ -12,30 +11,32 @@ const games = ref([[], [], []]);
 const selectedGames = ref([null, null, null]);
 const highlightedIndex = ref([null, null, null]);
 const isSearching = ref([false, false, false]);
+let searchTimeouts = [null, null, null];
 
-// Pobieranie i sortowanie gier
-const fetchGames = async (index) => {
-    const query = queries.value[index].trim();
-    if (query.length < 3) {
-        games.value[index] = [];
-        return;
-    }
-    isSearching.value[index] = true;
-
-    try {
-        const response = await axios.get('/search', { params: { search: query, index } });
-        if (response.data.games) {
-            // Sortowanie wyników według roku wydania (malejąco)
-            games.value[index] = response.data.games[index].sort((a, b) => b.year - a.year);
+const fetchGames = (index) => {
+    clearTimeout(searchTimeouts[index]);
+    searchTimeouts[index] = setTimeout(async () => {
+        const query = queries.value[index].trim();
+        if (query.length < 3) {
+            games.value[index] = [];
+            return;
         }
-    } catch (error) {
-        console.error("Error fetching games:", error);
-    } finally {
-        isSearching.value[index] = false;
-    }
+        isSearching.value[index] = true;
+
+        try {
+            const response = await axios.get('/search', { params: { search: query, index } });
+            if (response.data.games) {
+                games.value[index] = response.data.games[index];
+            }
+        } catch (error) {
+            console.error("Error fetching games:", error);
+        } finally {
+            isSearching.value[index] = false;
+        }
+    }, 1000);
 };
 
-// Funkcja do wyboru gry
+
 const selectGame = (game, index) => {
     selectedGames.value[index] = game;
     queries.value[index] = game.name;
@@ -91,6 +92,7 @@ const submitForm = () => {
     });
 };
 </script>
+
 
 <template>
 

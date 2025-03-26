@@ -20,56 +20,67 @@ class SearchGameController extends Controller
         }
 
         $games = $this->fetchSearchResults($query);
-        $games = $this->fetchGameDetails($games);
-
-        // return $games;
 
         return response()->json(['games' => [$index => array_values($games)]]);
     }
 
-    private function fetchSearchResults(string $query): array
+    private function fetchSearchResults(string $query)
     {
-        return Cache::remember("search_results_{$query}", 3600, function () use ($query) {
-            $response = Http::get("https://boardgamegeek.com/xmlapi2/search?query={$query}&type=boardgame");
-            if ($response->failed()) return [];
+        $response = Http::get("https://boardgamegeek.com/xmlapi2/search?query={$query}&type=boardgame");
 
-            $xml = simplexml_load_string($response->body());
-            $array = json_decode(json_encode($xml), true);
-
-            if (!isset($array['item'])) {
-                return [];
-            }
-
-            $games = [];
-            foreach ($array['item'] as $item) {
-                if (!isset($item['@attributes']['id'], $item['name']['@attributes']['value'])) continue;
-                $games[$item['@attributes']['id']] = [
-                    'id' => $item['@attributes']['id'],
-                    'name' => $item['name']['@attributes']['value'],
-                    'year' => $item['yearpublished']['@attributes']['value'] ?? 'Unknown',
-                ];
-            }
-            return $games;
-        });
-    }
-
-    private function fetchGameDetails(array $games): array
-    {
-        $gameIds = implode(',', array_keys($games));
-        $response = Http::get("https://boardgamegeek.com/xmlapi2/thing?id={$gameIds}");
-        if ($response->failed()) return $games;
-
-        $xml = simplexml_load_string($response->body());
-        $array = json_decode(json_encode($xml), true); // Konwersja XML → JSON → Tablica
-
-        if (!isset($array['item'])) {
-            return $games;
+        if ($response->failed()) {
+            return [];
         }
 
-        foreach ($array['item'] as $item) {
-            if (!isset($item['@attributes']['id'])) continue;
-            $id = $item['@attributes']['id'];
-            $games[$id]['image'] = $item['image'] ?? '';
+        $xml = simplexml_load_string($response->body());
+        if (!$xml || !isset($xml->item)) {
+            return [];
+        }
+
+        $gameIds = [];
+        foreach ($xml->item as $item) {
+            $gameIds[] = (int) $item['id'];
+        }
+
+        if (empty($gameIds)) {
+            return [];
+        }
+
+        $games = [];
+
+        $chunks = array_chunk($gameIds, 20);
+
+        foreach ($chunks as $chunk) {
+            $idList = implode(',', $chunk);
+
+            $gameResponse = Http::get("https://boardgamegeek.com/xmlapi2/thing?id={$idList}&type=boardgame");
+
+            if ($gameResponse->failed()) {
+                continue;
+            }
+
+            $gameXml = simplexml_load_string($gameResponse->body());
+            if (!$gameXml || !isset($gameXml->item)) {
+                continue;
+            }
+
+            foreach ($gameXml->item as $item) {
+                if (!isset($item->name['value'])) {
+                    continue;
+                }
+
+                $gameId = (int) $item['id'];
+                $gameName = (string) $item->name['value'];
+                $yearOfPublished = isset($item->yearpublished['value']) ? (string) $item->yearpublished['value'] : 'Unknown';
+                $gameImage = isset($item->image) ? (string) $item->image : null;
+
+                $games[] = [
+                    'id' => $gameId,
+                    'name' => $gameName,
+                    'year' => $yearOfPublished,
+                    'image' => $gameImage,
+                ];
+            }
         }
 
         return $games;
