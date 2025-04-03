@@ -1,52 +1,51 @@
 <script setup lang="ts">
 import AppNavigationBar from '@/layouts/app/AppNavigationBar.vue';
-import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 </script>
 
 <template>
+
   <Head title="About Me" />
 
-  <AppNavigationBar />  
-    <div class="about-container">
-      <!-- Photo -->
-      <div class="profile-picture">
-        <img 
-          src="#" 
-          alt="Profile Picture" 
-          class="profile-img"
-        /> 
-      </div>
+  <AppNavigationBar />
+  <div class="about-container">
+    <!-- Photo -->
+    <div class="profile-picture">
+      <img src="img/photo.jpg" alt="Profile Picture" class="profile-img" />
+    </div>
 
-      <!-- Description -->
-      <div class="about-description">
-        <p>
-          I am a graduate of Cardinal Stefan Wyszyński University in Warsaw, where I studied "Cultural Studies" and was also a member of the executive board of the academic theater.
-          Currently, I work in a transport company. 
-          I am focusing on improving my skills in PHP, primarily using the Laravel framework, and recently also in JavaScript, especially Vue.js. 
-          Currently, I am self-teaching by exploring the official documentation of the aforementioned programming languages and the frameworks I use.
-        </p>
-      </div>
+    <!-- Description -->
+    <div class="about-description">
+      <p>
+        Jestem absolwentem Uniwersytetu Kardynała Stefana Wyszyńskiego w Warszawie na kierunku „kulturoznawstwo”, gdzie
+        byłem także członkiem zarządu teatru akademickiego. Aktualnie pracuję w firmie transportowej.
 
-      <!-- Repository -->
-      <div class="repo-tiles">
-        <div class="repo-tile">
-          <a href="#" target="_blank">
-            <span>GitHub Repo 1</span>
-          </a>
-        </div>
-        <div class="repo-tile">
-          <a href="#" target="_blank">
-            <span>GitHub Repo 2</span>
-          </a>
-        </div>
-        <div class="repo-tile">
-          <a href="#" target="_blank">
-            <span>GitHub Repo 3</span>
-          </a>
-        </div>
+        Obecnie skupiam się na doskonaleniu swoich umiejętności w języku PHP, korzystając głównie z frameworku Laravel,
+        a ostatnio także w JavaScript, w szczególności Vue.js. Aktualnie uczę się samodzielnie, zapoznając się z
+        oficjalną dokumentacją ww. języków programowania oraz wykorzystywanych przeze mnie frameworków.
+
+      </p>
+    </div>
+
+    <!-- Repository -->
+    <div class="repo-tiles">
+      <div class="repo-tile">
+        <a href="#" target="_blank">
+          <span>GitHub Repo 1</span>
+        </a>
+      </div>
+      <div class="repo-tile">
+        <a href="#" target="_blank">
+          <span>GitHub Repo 2</span>
+        </a>
+      </div>
+      <div class="repo-tile">
+        <a href="#" target="_blank">
+          <span>GitHub Repo 3</span>
+        </a>
       </div>
     </div>
+  </div>
 </template>
 
 <style scoped>
@@ -68,7 +67,8 @@ import { Head } from '@inertiajs/vue3';
   width: 128px;
   height: 128px;
   border-radius: 50%;
-  border: 4px solid #e0e0e0; /* Szara ramka */
+  border: 4px solid #e0e0e0;
+  /* Szara ramka */
 }
 
 /* Description */
@@ -103,7 +103,8 @@ import { Head } from '@inertiajs/vue3';
   background-color: #f0f0f0;
   color: #333;
   text-align: center;
-  line-height: 128px; /* Ustalamy wysokość, by tekst był wyśrodkowany */
+  line-height: 128px;
+  /* Ustalamy wysokość, by tekst był wyśrodkowany */
   text-decoration: none;
 }
 
@@ -111,5 +112,4 @@ import { Head } from '@inertiajs/vue3';
   background-color: #e0e0e0;
   transform: scale(1.05);
 }
-
 </style>

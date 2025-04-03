@@ -20,10 +20,9 @@ class VoteController extends Controller
     public function store(Request $request): void
     {
 
-        // dd($request->all());
         $validated = $request->validate([
             'username' => 'required',
-            'email' => 'required|email',
+            // 'email' => 'required|email',
             'votes' => 'required|array',
         ]);
 
@@ -37,7 +36,7 @@ class VoteController extends Controller
                     'game_id' => $game->id,
                     'points' => $vote['points'],
                     'user_name' => $validated['username'],
-                    'email' => $validated['email'],
+                    'email' => 'user@user.com',
                     'voted_at' => now(),
                 ]);
             } else {
@@ -53,7 +52,7 @@ class VoteController extends Controller
                     'game_id' => $game->id,
                     'points' => $vote['points'],
                     'user_name' => $validated['username'],
-                    'email' => $validated['email'],
+                    'email' => 'user@user.com',
                     'voted_at' => now(),
                 ]);
             }

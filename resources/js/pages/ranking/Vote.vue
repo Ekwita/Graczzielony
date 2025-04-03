@@ -1,11 +1,10 @@
 <script setup>
-import { ref, computed, watch } from 'vue';
+import { ref, computed } from 'vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import AppNavigationBar from '@/layouts/app/AppNavigationBar.vue';
 import axios from 'axios';
 
 const username = ref('');
-const email = ref('');
 const queries = ref(['', '', '']);
 const games = ref([[], [], []]);
 const selectedGames = ref([null, null, null]);
@@ -36,14 +35,12 @@ const fetchGames = (index) => {
     }, 1000);
 };
 
-
 const selectGame = (game, index) => {
     selectedGames.value[index] = game;
     queries.value[index] = game.name;
     games.value[index] = [];
 };
 
-// Obsługa klawiatury
 const handleKeydown = (event, index) => {
     const items = games.value[index];
     if (!items.length) return;
@@ -58,11 +55,12 @@ const handleKeydown = (event, index) => {
     }
 };
 
-const isFormValid = computed(() => username.value && email.value && selectedGames.value.every(game => game));
+// TEMPORARY! Email is always the same
+const isFormValid = computed(() => username.value && selectedGames.value.every(game => game));
 
 const form = useForm({
     username: '',
-    email: '',
+    email: 'user@user.com',
     votes: [],
 });
 
@@ -73,7 +71,7 @@ const submitForm = () => {
     }
 
     form.username = username.value;
-    form.email = email.value;
+    form.email = 'user@user.com'; // Domyślny mail. Do zmiany po zabezpieczeniu aplikacji.
     form.votes = selectedGames.value.map((game, idx) => ({
         id: game?.id ?? null,
         name: game?.name ?? '',
@@ -109,7 +107,8 @@ const submitForm = () => {
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input id="email" type="email" v-model="email" required />
+                    <input id="email" type="email" v-model="email" readonly
+                        placeholder="Nie podawaj mi swojego adresu email" />
                 </div>
 
                 <div v-for="(query, index) in queries" :key="index" class="form-group">

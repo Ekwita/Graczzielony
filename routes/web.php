@@ -14,6 +14,7 @@ Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// Game ranking
 
 Route::get('/search', [SearchGameController::class, 'search'])->name('game.search');
 Route::get('/vote', [VoteController::class, 'index'])->name('vote.index');
@@ -21,7 +22,13 @@ Route::post('/vote/store', [VoteController::class, 'store'])->name('vote.store')
 
 Route::get('/ranking', [RankingController::class, 'index'])->name('ranking.index');
 
+
 Route::inertia('/about', 'About');
+
+// Fallback
+Route::fallback(function () {
+    return Inertia::render('NotFound');
+});
 
 
 

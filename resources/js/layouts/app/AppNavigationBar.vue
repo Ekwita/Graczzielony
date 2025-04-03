@@ -27,7 +27,7 @@ const isBlogOpen = ref(false);
                         <Link href="/ranking" class="nav-link" active-class="active">Current Voting Results</Link>
                     </li>
                     <li class="nav-item">
-                        <Link href="#" class="nav-link" active-class="active">Previous Voting Results
+                        <Link href="/ranking/archive" class="nav-link" active-class="active">Previous Voting Results
                         </Link>
                     </li>
                 </ul>
@@ -38,10 +38,10 @@ const isBlogOpen = ref(false);
                 <button class="nav-link">Blog</button>
                 <ul v-if="isBlogOpen" class="dropdown-menu">
                     <li class="nav-item">
-                        <Link href="#" class="nav-link" active-class="active">Reviews</Link>
+                        <Link href="/blog/review" class="nav-link" active-class="active">Reviews</Link>
                     </li>
                     <li class="nav-item">
-                        <Link href="#" class="nav-link" active-class="active">Unpopular Opinions</Link>
+                        <Link href="/blog/opinion" class="nav-link" active-class="active">Unpopular Opinions</Link>
                     </li>
                 </ul>
             </li>

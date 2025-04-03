@@ -13,6 +13,7 @@ class RankingController extends Controller
         return Inertia::render('ranking/CurrentRanking', [
             'games' => Game::orderByDesc('score')
                 ->orderByDesc('votes')
+                ->limit(10)
                 ->get()
         ]);
     }
