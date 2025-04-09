@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { Head, useForm } from '@inertiajs/vue3';
-import AppNavigationBar from '@/layouts/app/AppNavigationBar.vue';
+import PageLayout from '@/layouts/blog/PageLayout.vue';
 import axios from 'axios';
 
 const username = ref('');
@@ -95,44 +95,46 @@ const submitForm = () => {
 <template>
 
     <Head title="Vote for Best Game" />
-    <AppNavigationBar />
-
-    <div class="container">
-        <div class="content">
-            <h1 class="title">Vote for your favorite board game</h1>
-            <form @submit.prevent="submitForm" class="form">
-                <div class="form-group">
-                    <label for="username">User name:</label>
-                    <input id="username" type="text" v-model="username" required />
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input id="email" type="email" v-model="email" readonly
-                        placeholder="Nie podawaj mi swojego adresu email" />
-                </div>
-
-                <div v-for="(query, index) in queries" :key="index" class="form-group">
-                    <label :for="`game-${index}`">Select game for ({{ 3 - index }} points):</label>
-                    <div class="game-selection">
-                        <img v-if="selectedGames[index]?.image" :src="selectedGames[index].image" alt="thumbnail"
-                            class="selected-thumbnail" />
-                        <input :id="`game-${index}`" type="text" v-model="queries[index]" placeholder="Wpisz nazwę gry"
-                            @keydown="handleKeydown($event, index)" @input="fetchGames(index)" autocomplete="off" />
+    <PageLayout>
+        <div class="container">
+            <div class="content">
+                <h1 class="title">Vote for your favorite board game</h1>
+                <form @submit.prevent="submitForm" class="form">
+                    <div class="form-group">
+                        <label for="username">User name:</label>
+                        <input id="username" type="text" v-model="username" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input id="email" type="email" v-model="email" readonly
+                            placeholder="Nie podawaj mi swojego adresu email" />
                     </div>
 
-                    <ul v-if="games[index].length" class="dropdown">
-                        <li v-for="(game, i) in games[index]" :key="game.id"
-                            :class="{ highlighted: i === highlightedIndex[index] }" @click="selectGame(game, index)">
-                            <img v-if="game.image" :src="game.image" alt="thumbnail" class="thumbnail" />
-                            <span>{{ game.name }} ({{ game.year }})</span>
-                        </li>
-                    </ul>
-                </div>
+                    <div v-for="(query, index) in queries" :key="index" class="form-group">
+                        <label :for="`game-${index}`">Select game for ({{ 3 - index }} points):</label>
+                        <div class="game-selection">
+                            <img v-if="selectedGames[index]?.image" :src="selectedGames[index].image" alt="thumbnail"
+                                class="selected-thumbnail" />
+                            <input :id="`game-${index}`" type="text" v-model="queries[index]"
+                                placeholder="Wpisz nazwę gry" @keydown="handleKeydown($event, index)"
+                                @input="fetchGames(index)" autocomplete="off" />
+                        </div>
 
-                <button type="submit" class="btn-submit">Vote</button>
-            </form>
+                        <ul v-if="games[index].length" class="dropdown">
+                            <li v-for="(game, i) in games[index]" :key="game.id"
+                                :class="{ highlighted: i === highlightedIndex[index] }"
+                                @click="selectGame(game, index)">
+                                <img v-if="game.image" :src="game.image" alt="thumbnail" class="thumbnail" />
+                                <span>{{ game.name }} ({{ game.year }})</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Vote</button>
+                </form>
+            </div>
         </div>
-    </div>
+    </PageLayout>
 </template>
 
 <style scoped>

@@ -1,6 +1,6 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
-import AppNavigationBar from '@/layouts/app/AppNavigationBar.vue';
+import PageLayout from '@/layouts/blog/PageLayout.vue';
 
 defineProps({
   games: Array,
@@ -10,37 +10,38 @@ defineProps({
 <template>
 
   <Head title="Current ranking" />
-  <AppNavigationBar />
+  <PageLayout>
 
-  <div class="container">
-    <h1 class="title">Ranking Gier</h1>
+    <div class="container">
+      <h1 class="title">Ranking Gier</h1>
 
-    <div class="table-container">
-      <table class="game-table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Nazwa</th>
-            <th>Ocena</th>
-            <th>Głosy</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(game, index) in games" :key="game.bgg_id" class="game-row">
-            <td class="center">{{ index + 1 }}</td>
-            <td class="game-info">
-              <a :href="game.hyperlink" target="_blank" class="game-link">
-                <img :src="game.image" alt="Game image" class="game-image" />
-                <span>{{ game.name }}</span>
-              </a>
-            </td>
-            <td class="center">{{ game.score }}</td>
-            <td class="center">{{ game.votes }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-container">
+        <table class="game-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nazwa</th>
+              <th>Ocena</th>
+              <th>Głosy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(game, index) in games" :key="game.bgg_id" class="game-row">
+              <td class="center">{{ index + 1 }}</td>
+              <td class="game-info">
+                <a :href="game.hyperlink" target="_blank" class="game-link">
+                  <img :src="game.image" alt="Game image" class="game-image" />
+                  <span>{{ game.name }}</span>
+                </a>
+              </td>
+              <td class="center">{{ game.score }}</td>
+              <td class="center">{{ game.votes }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
+  </PageLayout>
 </template>
 
 <style scoped>

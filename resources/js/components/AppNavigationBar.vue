@@ -2,7 +2,6 @@
 
 import { ref } from "vue";
 import { Link } from "@inertiajs/vue3";
-
 const isRankingOpen = ref(false);
 const isBlogOpen = ref(false);
 
@@ -14,20 +13,22 @@ const isBlogOpen = ref(false);
         <ul class="nav-list">
             <!-- Home -->
             <li class="nav-item">
-                <Link href="/" class="nav-link" active-class="active">Home</Link>
-            </li>   
+                <Link :href="route('home')" class="nav-link" active-class="active">Strona główna</Link>
+            </li>
             <!-- Ranking -->
             <li class="nav-item relative" @mouseenter="isRankingOpen = true" @mouseleave="isRankingOpen = false">
                 <button class="nav-link">Ranking</button>
                 <ul v-if="isRankingOpen" class="dropdown-menu">
                     <li class="nav-item">
-                        <Link href="/vote" class="nav-link" active-class="active">Vote for Best Game</Link>
+                        <Link :href="route('vote.index')" class="nav-link" active-class="active">Wybierz grę miesiąca
+                        </Link>
                     </li>
                     <li class="nav-item">
-                        <Link href="/ranking" class="nav-link" active-class="active">Current Voting Results</Link>
+                        <Link :href="route('ranking.index')" class="nav-link" active-class="active">Aktualny ranking
+                        </Link>
                     </li>
                     <li class="nav-item">
-                        <Link href="/ranking/archive" class="nav-link" active-class="active">Previous Voting Results
+                        <Link href="/ranking-archiwum" class="nav-link" active-class="active">Archiwalne rankingi
                         </Link>
                     </li>
                 </ul>
@@ -38,17 +39,17 @@ const isBlogOpen = ref(false);
                 <button class="nav-link">Blog</button>
                 <ul v-if="isBlogOpen" class="dropdown-menu">
                     <li class="nav-item">
-                        <Link href="/blog/review" class="nav-link" active-class="active">Reviews</Link>
+                        <Link href="/blog/recenzje" class="nav-link" active-class="active">Recenzje</Link>
                     </li>
                     <li class="nav-item">
-                        <Link href="/blog/opinion" class="nav-link" active-class="active">Unpopular Opinions</Link>
+                        <Link href="/blog/opinie" class="nav-link" active-class="active">Niepopularne opinie</Link>
                     </li>
                 </ul>
             </li>
 
             <!-- About -->
             <li class="nav-item">
-                <Link href="/about" class="nav-link" active-class="active">About</Link>
+                <Link :href="route('about')" class="nav-link" active-class="active">O mnie</Link>
             </li>
         </ul>
     </nav>

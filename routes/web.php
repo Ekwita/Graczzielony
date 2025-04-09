@@ -17,13 +17,14 @@ Route::get('dashboard', function () {
 // Game ranking
 
 Route::get('/search', [SearchGameController::class, 'search'])->name('game.search');
-Route::get('/vote', [VoteController::class, 'index'])->name('vote.index');
+Route::get('/gra-miesiaca-glosowanie', [VoteController::class, 'index'])->name('vote.index');
 Route::post('/vote/store', [VoteController::class, 'store'])->name('vote.store');
 
 Route::get('/ranking', [RankingController::class, 'index'])->name('ranking.index');
 
 
-Route::inertia('/about', 'About');
+
+Route::inertia('/o-mnie', 'About')->name('about');
 
 // Fallback
 Route::fallback(function () {

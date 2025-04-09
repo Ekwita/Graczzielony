@@ -1,51 +1,55 @@
 <script setup lang="ts">
-import AppNavigationBar from '@/layouts/app/AppNavigationBar.vue';
+import PageLayout from '@/layouts/blog/PageLayout.vue';
 import { Head } from '@inertiajs/vue3';
 </script>
 
 <template>
 
-  <Head title="About Me" />
+  <Head title="O mnie" />
 
-  <AppNavigationBar />
-  <div class="about-container">
-    <!-- Photo -->
-    <div class="profile-picture">
-      <img src="img/photo.jpg" alt="Profile Picture" class="profile-img" />
+  <PageLayout>
+    <div class="about-container">
+      <!-- Photo -->
+      <div class="profile-picture">
+        <img src="img/photo.jpg" alt="Profile Picture" class="profile-img" />
+      </div>
+
+      <!-- Description -->
+      <div class="about-description">
+        <p>
+          Jestem absolwentem Uniwersytetu Kardynała Stefana Wyszyńskiego w Warszawie na kierunku „kulturoznawstwo”,
+          gdzie
+          byłem także członkiem zarządu teatru akademickiego. Aktualnie pracuję w firmie transportowej.
+
+          Obecnie skupiam się na doskonaleniu swoich umiejętności w języku PHP, korzystając głównie z frameworku
+          Laravel,
+          a ostatnio także w JavaScript, w szczególności Vue.js. Aktualnie uczę się samodzielnie, zapoznając się z
+          oficjalną dokumentacją ww. języków programowania oraz wykorzystywanych przeze mnie frameworków.
+
+        </p>
+      </div>
+
+      <!-- Repository -->
+      <div class="repo-tiles">
+        <div class="repo-tile">
+          <a href="#" target="_blank">
+            <span>GitHub Repo 1</span>
+          </a>
+        </div>
+        <div class="repo-tile">
+          <a href="#" target="_blank">
+            <span>GitHub Repo 2</span>
+          </a>
+        </div>
+        <div class="repo-tile">
+          <a href="#" target="_blank">
+            <span>GitHub Repo 3</span>
+          </a>
+        </div>
+      </div>
     </div>
 
-    <!-- Description -->
-    <div class="about-description">
-      <p>
-        Jestem absolwentem Uniwersytetu Kardynała Stefana Wyszyńskiego w Warszawie na kierunku „kulturoznawstwo”, gdzie
-        byłem także członkiem zarządu teatru akademickiego. Aktualnie pracuję w firmie transportowej.
-
-        Obecnie skupiam się na doskonaleniu swoich umiejętności w języku PHP, korzystając głównie z frameworku Laravel,
-        a ostatnio także w JavaScript, w szczególności Vue.js. Aktualnie uczę się samodzielnie, zapoznając się z
-        oficjalną dokumentacją ww. języków programowania oraz wykorzystywanych przeze mnie frameworków.
-
-      </p>
-    </div>
-
-    <!-- Repository -->
-    <div class="repo-tiles">
-      <div class="repo-tile">
-        <a href="#" target="_blank">
-          <span>GitHub Repo 1</span>
-        </a>
-      </div>
-      <div class="repo-tile">
-        <a href="#" target="_blank">
-          <span>GitHub Repo 2</span>
-        </a>
-      </div>
-      <div class="repo-tile">
-        <a href="#" target="_blank">
-          <span>GitHub Repo 3</span>
-        </a>
-      </div>
-    </div>
-  </div>
+  </PageLayout>
 </template>
 
 <style scoped>
@@ -104,7 +108,6 @@ import { Head } from '@inertiajs/vue3';
   color: #333;
   text-align: center;
   line-height: 128px;
-  /* Ustalamy wysokość, by tekst był wyśrodkowany */
   text-decoration: none;
 }
 

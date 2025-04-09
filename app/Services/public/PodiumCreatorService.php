@@ -3,12 +3,19 @@
 namespace App\Services\Public;
 
 use App\Models\Game;
+use App\Models\Podium;
 
 class PodiumCreatorService
 {
     public function createPodium()
     {
         $games = Game::orderByDesc('score')
+            ->orderByDesc('votes')
+            ->limit(3)
+            ->get();
+        foreach ($games as $game) {
+            Podium::create([]);
+        }
     }
 
     public function archiveRanking()
