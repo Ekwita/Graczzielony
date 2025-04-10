@@ -28,7 +28,7 @@ const isBlogOpen = ref(false);
                         </Link>
                     </li>
                     <li class="nav-item">
-                        <Link href="/ranking-archiwum" class="nav-link" active-class="active">Archiwalne rankingi
+                        <Link href="/ranking/archiwum" class="nav-link" active-class="active">Archiwalne rankingi
                         </Link>
                     </li>
                 </ul>

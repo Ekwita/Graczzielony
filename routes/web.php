@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Public\Ranking\ArchivedRankingController;
 use App\Http\Controllers\Public\Ranking\RankingController;
 use App\Http\Controllers\Public\Voting\SearchGameController;
 use App\Http\Controllers\Public\Voting\VoteController;
@@ -21,6 +22,8 @@ Route::get('/gra-miesiaca-glosowanie', [VoteController::class, 'index'])->name('
 Route::post('/vote/store', [VoteController::class, 'store'])->name('vote.store');
 
 Route::get('/ranking', [RankingController::class, 'index'])->name('ranking.index');
+Route::get('/ranking/archiwum', [ArchivedRankingController::class, 'index'])->name('ranking.archived');
+Route::get('/ranking/archiwum/{id}', [ArchivedRankingController::class, 'index'])->name('ranking.show');
 
 
 
