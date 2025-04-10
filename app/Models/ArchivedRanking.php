@@ -19,6 +19,6 @@ class ArchivedRanking extends Model
 
     public function games(): HasMany
     {
-        return $this->hasMany(ArchivedGame::class);
+        return $this->hasMany(ArchivedGame::class, 'ranking_id');
     }
 }

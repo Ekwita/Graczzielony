@@ -23,7 +23,7 @@ Route::post('/vote/store', [VoteController::class, 'store'])->name('vote.store')
 
 Route::get('/ranking', [RankingController::class, 'index'])->name('ranking.index');
 Route::get('/ranking/archiwum', [ArchivedRankingController::class, 'index'])->name('ranking.archived');
-Route::get('/ranking/archiwum/{id}', [ArchivedRankingController::class, 'index'])->name('ranking.show');
+Route::get('/ranking/archiwum/{id}', [ArchivedRankingController::class, 'show'])->name('ranking.show');
 
 
 

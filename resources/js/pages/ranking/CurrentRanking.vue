@@ -25,7 +25,7 @@ defineProps({
               <th>Głosy</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody >
             <tr v-for="(game, index) in games" :key="game.bgg_id" class="game-row">
               <td class="center">{{ index + 1 }}</td>
               <td class="game-info">
@@ -38,6 +38,7 @@ defineProps({
               <td class="center">{{ game.votes }}</td>
             </tr>
           </tbody>
+          
         </table>
       </div>
     </div>

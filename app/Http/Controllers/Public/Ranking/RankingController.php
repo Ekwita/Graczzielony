@@ -11,7 +11,8 @@ class RankingController extends Controller
     public function index()
     {
         return Inertia::render('ranking/CurrentRanking', [
-            'games' => Game::orderByDesc('score')
+            'games' => Game::where('score', '>', 0)
+                ->where('votes', '>', 0)->orderByDesc('score')
                 ->orderByDesc('votes')
                 ->take(10)
                 ->get()

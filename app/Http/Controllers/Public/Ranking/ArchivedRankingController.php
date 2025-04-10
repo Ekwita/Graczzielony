@@ -21,10 +21,10 @@ class ArchivedRankingController extends Controller
 
     public function show(int $id)
     {
-        $ranking = ArchivedRanking::where('id', $id)->games()->get();
+        $ranking = ArchivedRanking::with('games')->findOrFail($id);
 
         return Inertia::render('ranking/ArchiveShow', [
-            'ranking' => $ranking,
+            'ranking' => $ranking
         ]);
     }
 }

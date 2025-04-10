@@ -21,7 +21,6 @@ const goToRanking = (id) => {
 </script>
 
 <template>
-
     <Head title="Archiwalne rankingi" />
     <PageLayout>
         <div class="container">
