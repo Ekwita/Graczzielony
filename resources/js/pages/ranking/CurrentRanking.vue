@@ -9,7 +9,7 @@ defineProps({
 
 <template>
 
-  <Head title="Current ranking" />
+  <Head title="Aktualny ranking" />
   <PageLayout>
 
     <div class="container">

@@ -5,7 +5,7 @@ import PageLayout from '@/layouts/blog/PageLayout.vue';
 
 <template>
 
-    <Head title="Welcome" />
+    <Head title="Strona główna" />
 
     <PageLayout>
         <div class="container">

@@ -32,18 +32,18 @@ import { Head } from '@inertiajs/vue3';
       <!-- Repository -->
       <div class="repo-tiles">
         <div class="repo-tile">
-          <a href="#" target="_blank">
-            <span>GitHub Repo 1</span>
+          <a href="https://github.com/Ekwita/BoardGames" target="_blank">
+            <span>Aplikacja obsługująca grę planszową</span>
           </a>
         </div>
         <div class="repo-tile">
-          <a href="#" target="_blank">
-            <span>GitHub Repo 2</span>
+          <a href="https://github.com/Ekwita/shop-wisiadla" target="_blank">
+            <span>Projekt koszyka sklepowego</span>
           </a>
         </div>
         <div class="repo-tile">
-          <a href="#" target="_blank">
-            <span>GitHub Repo 3</span>
+          <a href="https://github.com/Ekwita/boardgames-ranking/tree/develop" target="_blank">
+            <span>Ranking gier planszowych - backend</span>
           </a>
         </div>
       </div>
