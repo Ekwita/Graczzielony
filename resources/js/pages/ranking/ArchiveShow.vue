@@ -19,7 +19,7 @@ const formatMonth = (dateStr) => {
 
 <template>
 
-    <Head title="Aktualny ranking" />
+    <Head title='Archiwum Top 10 gier' />
     <PageLayout>
 
         <div class="container">

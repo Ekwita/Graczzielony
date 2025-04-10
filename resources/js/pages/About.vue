@@ -26,6 +26,10 @@ import { Head } from '@inertiajs/vue3';
           a ostatnio także w JavaScript, w szczególności Vue.js. Aktualnie uczę się samodzielnie, zapoznając się z
           oficjalną dokumentacją ww. języków programowania oraz wykorzystywanych przeze mnie frameworków.
 
+          <br />
+          <br />
+          Poniżej znajdują się linki do moich projektów.
+
         </p>
       </div>
 

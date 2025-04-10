@@ -1,6 +1,7 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
 import PageLayout from '@/layouts/blog/PageLayout.vue';
+import CountdownTimer from '@/components/CountdownTimer.vue';
 
 defineProps({
   games: Array,
@@ -11,7 +12,7 @@ defineProps({
 
   <Head title="Aktualny ranking" />
   <PageLayout>
-
+    <CountdownTimer />
     <div class="container">
       <h1 class="title">Ranking Gier</h1>
 
@@ -25,7 +26,7 @@ defineProps({
               <th>Głosy</th>
             </tr>
           </thead>
-          <tbody >
+          <tbody>
             <tr v-for="(game, index) in games" :key="game.bgg_id" class="game-row">
               <td class="center">{{ index + 1 }}</td>
               <td class="game-info">
@@ -38,7 +39,7 @@ defineProps({
               <td class="center">{{ game.votes }}</td>
             </tr>
           </tbody>
-          
+
         </table>
       </div>
     </div>

@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 import { Head, useForm, router } from '@inertiajs/vue3';
 import PageLayout from '@/layouts/blog/PageLayout.vue';
+import CountdownTimer from '@/components/CountdownTimer.vue';
 import axios from 'axios';
 
 const username = ref('');
@@ -101,6 +102,7 @@ const submitForm = () => {
 
     <Head title="Zagłosuj na najlepsze gry miesiąca" />
     <PageLayout>
+        <CountdownTimer />
         <div class="container">
             <h1 class="title">Oddaj głos na najlepsze gry miesiąca</h1>
 
@@ -131,6 +133,7 @@ const submitForm = () => {
                 <button type="submit" class="btn-submit">Oddaj głos</button>
             </form>
         </div>
+
 
         <transition name="fade">
             <div v-if="showSuccessModal" class="modal-overlay">
