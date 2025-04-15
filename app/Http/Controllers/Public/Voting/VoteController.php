@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreVoteRequest;
 use App\Models\Game;
 use App\Models\Vote;
-use GuzzleHttp\Promise\Create;
 use Inertia\Inertia;
 use Inertia\Response;
 

@@ -27,8 +27,8 @@ defineProps({
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(game, index) in games" :key="game.bgg_id" class="game-row">
-              <td class="center">{{ index + 1 }}</td>
+            <tr v-for="game in games" :key="game.bgg_id" class="game-row">
+              <td class="center">{{ game.place }}</td>
               <td class="game-info">
                 <a :href="game.hyperlink" target="_blank" class="game-link">
                   <img :src="game.image" alt="Game image" class="game-image" />
