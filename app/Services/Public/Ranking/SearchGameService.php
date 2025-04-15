@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Public\Games;
+namespace App\Services\Public\Ranking;
 
 use App\DTOs\GameDTO;
 use Illuminate\Support\Facades\Http;

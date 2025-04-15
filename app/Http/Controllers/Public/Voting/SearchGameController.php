@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Public\Voting;
 
 use App\Http\Controllers\Controller;
-use App\Services\Public\Games\SearchGameService;
+use App\Services\Public\Ranking\SearchGameService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 
 class SearchGameController extends Controller
 {
