@@ -19,7 +19,7 @@ Route::get('dashboard', function () {
 
 Route::get('/search', [SearchGameController::class, 'search'])->name('game.search');
 Route::get('/gra-miesiaca-glosowanie', [VoteController::class, 'index'])->name('vote.index');
-Route::post('/vote/store', [VoteController::class, 'store'])->name('vote.store');
+Route::post('/vote/store', [VoteController::class, 'store'])->name('vote.store')->middleware(['throttle:vote']);
 
 Route::get('/ranking', [RankingController::class, 'index'])->name('ranking.index');
 Route::get('/ranking/archiwum', [ArchivedRankingController::class, 'index'])->name('ranking.archived');

@@ -10,9 +10,6 @@ use Carbon\Carbon;
 
 class ArchiveTopGames
 {
-    /**
-     * Execute the job.
-     */
     public function __invoke(): void
     {
 
@@ -47,6 +44,12 @@ class ArchiveTopGames
             ]);
         }
 
+
+        $this->clearData();
+    }
+
+    private function clearData()
+    {
         Vote::truncate();
         Game::query()->update([
             'votes' => 0,

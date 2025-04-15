@@ -4,16 +4,18 @@
 <template>
     <footer>
         <div class="info">
-            Wszystkie gry pochodzą z serwisu
-            <a href="https://boardgamegeek.com/" class="bgg_link" target="_blank" rel="noopener noreferrer">
-                BoardGameGeek
-            </a>.
-            <br />Wszelkie prawa do gier należą do ich wydawców.
-        </div>
-        <div class="bgg_logo">
-            <a href="https://boardgamegeek.com/" class="bgg_link" target="_blank" rel="noopener noreferrer">
-                <img src="/img/BGGLogo.png" alt="BoardGameGeek Logo" class="logo" />
-            </a>
+            <div class="bgg_logo">
+                <a href="https://boardgamegeek.com/" class="bgg_link" target="_blank" rel="noopener noreferrer">
+                    <img src="/img/BGGLogo.png" alt="BoardGameGeek Logo" class="logo" />
+                </a>
+            </div>
+            <div class="text">
+                Wszystkie gry pochodzą z serwisu
+                <a href="https://boardgamegeek.com/" class="bgg_link" target="_blank" rel="noopener noreferrer">
+                    BoardGameGeek
+                </a>.
+                <br />Wszelkie prawa do gier należą do ich wydawców.
+            </div>
         </div>
     </footer>
 </template>
@@ -31,15 +33,24 @@ footer {
 }
 
 .info {
-    font-size: 14px;
-    line-height: 1.4;
-    max-width: 70%;
+    display: flex;
+    align-items: left;
+    width: 100%;
+    padding: 5px;
 }
 
 .bgg_logo {
+    margin-right: 10px;
     height: 40px;
     display: flex;
     align-items: center;
+}
+
+.text {
+    font-size: 14px;
+    line-height: 1.4;
+    max-width: 70%;
+    margin-left: 10px;
 }
 
 .logo {

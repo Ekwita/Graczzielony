@@ -20,14 +20,14 @@ import { Head } from '@inertiajs/vue3';
           Jestem absolwentem Uniwersytetu Kardynała Stefana Wyszyńskiego w Warszawie na kierunku „kulturoznawstwo”,
           gdzie
           byłem także członkiem zarządu teatru akademickiego. Aktualnie pracuję w firmie transportowej.
-
+          <br>
           Obecnie skupiam się na doskonaleniu swoich umiejętności w języku PHP, korzystając głównie z frameworku
           Laravel,
           a ostatnio także w JavaScript, w szczególności Vue.js. Aktualnie uczę się samodzielnie, zapoznając się z
           oficjalną dokumentacją ww. języków programowania oraz wykorzystywanych przeze mnie frameworków.
 
-          <br />
-          <br />
+          <br>
+          <br>
           Poniżej znajdują się linki do moich projektów.
 
         </p>

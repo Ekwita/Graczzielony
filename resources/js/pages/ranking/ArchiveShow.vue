@@ -36,7 +36,8 @@ const formatMonth = (dateStr) => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(game, index) in games" :key="game.bgg_id" class="game-row">
+                        <tr v-for="(game, index) in games" :key="game.bgg_id"
+                            :class="['game-row', { 'top-ranking': index < 3 }]">
                             <td class="center">{{ index + 1 }}</td>
                             <td class="game-info">
                                 <a :href="game.hyperlink" target="_blank" class="game-link">
@@ -88,6 +89,11 @@ const formatMonth = (dateStr) => {
     background: #444;
     color: white;
     text-align: left;
+}
+
+.top-ranking {
+    background-color: #d4edda;
+    font-weight: bold;
 }
 
 .game-row:hover {

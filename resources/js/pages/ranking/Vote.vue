@@ -42,21 +42,14 @@ const selectGame = (game, index) => {
     games.value[index] = [];
 };
 
-const handleKeydown = (event, index) => {
-    const items = games.value[index];
-    if (!items.length) return;
-    const current = highlightedIndex.value[index];
+const isFormValid = computed(() => {
+    if (!username.value || selectedGames.value.some(game => game === null)) return false;
 
-    if (event.key === 'ArrowDown') {
-        highlightedIndex.value[index] = current === null || current === items.length - 1 ? 0 : current + 1;
-    } else if (event.key === 'ArrowUp') {
-        highlightedIndex.value[index] = current === null || current === 0 ? items.length - 1 : current - 1;
-    } else if (event.key === 'Enter' && current !== null) {
-        selectGame(items[current], index);
-    }
-};
+    const ids = selectedGames.value.map(game => game?.id);
+    const uniqueIds = new Set(ids);
 
-const isFormValid = computed(() => username.value && selectedGames.value.every(game => game));
+    return ids.length === uniqueIds.size;
+});
 
 const form = useForm({
     username: '',
@@ -67,7 +60,7 @@ const showSuccessModal = ref(false);
 
 const submitForm = () => {
     if (!isFormValid.value) {
-        alert('Wszystkie pola są wymagane!');
+        alert('Wszystkie pola są wymagane i gry muszą być unikalne!');
         return;
     }
 

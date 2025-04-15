@@ -22,9 +22,12 @@ class StoreVoteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => 'required|string|unique:votes,user_name',
-            // 'email' => 'required|email',
-            'votes' => 'required|array',
+            'username' => ['required', 'string', 'max:255'],
+            'votes' => ['required', 'array', 'size:3'],
+            'votes.*.id' => ['required', 'integer', 'distinct'],
+            'votes.*.name' => ['required', 'string'],
+            'votes.*.points' => ['required', 'integer'],
+            'votes.*.image' => ['nullable', 'string'],
         ];
     }
 

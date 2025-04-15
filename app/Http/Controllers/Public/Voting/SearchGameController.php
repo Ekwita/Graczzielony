@@ -35,10 +35,13 @@ class SearchGameController extends Controller
             return [];
         }
 
-        $gameIds = [];
+        $gameIdNameMap = [];
         foreach ($xml->item as $item) {
-            $gameIds[] = (int) $item['id'];
+            $id = (int) $item['id'];
+            $name = (string) $item->name['value'];
+            $gameIdNameMap[$id] = $name;
         }
+        $gameIds = array_keys($gameIdNameMap);
 
         if (empty($gameIds)) {
             return [];
@@ -66,9 +69,8 @@ class SearchGameController extends Controller
                 if (!isset($item->name['value'])) {
                     continue;
                 }
-
                 $gameId = (int) $item['id'];
-                $gameName = (string) $item->name['value'];
+                $gameName = $gameIdNameMap[$gameId] ?? 'Unknown';
                 $yearOfPublished = isset($item->yearpublished['value']) ? (string) $item->yearpublished['value'] : 'Unknown';
                 $gameImage = isset($item->image) ? (string) $item->image : null;
 
