@@ -13,7 +13,8 @@ class ArchiveTopGames
     public function __invoke(): void
     {
 
-        $bestGame = Game::orderByDesc('score')
+        $bestGame = Game::where('score', '>', 0)
+            ->orderByDesc('score')
             ->orderByDesc('votes')
             ->first();
 
@@ -43,7 +44,6 @@ class ArchiveTopGames
                 'votes' => $games->votes,
             ]);
         }
-
 
         $this->clearData();
     }

@@ -111,7 +111,7 @@ const submitForm = () => {
                         <img v-if="selectedGames[index]?.image" :src="selectedGames[index].image" alt="thumbnail"
                             class="selected-thumbnail" />
                         <input :id="`game-${index}`" type="text" v-model="queries[index]" placeholder="Wpisz nazwę gry"
-                            @keydown="handleKeydown($event, index)" @input="fetchGames(index)" autocomplete="off" />
+                            @input="fetchGames(index)" autocomplete="off" />
                     </div>
 
                     <ul v-if="games[index].length" class="dropdown">

@@ -11,5 +11,5 @@ Artisan::command('inspire', function () {
 
 
 Schedule::call(ArchiveTopGames::class)->everyMinute();
-// Schedule::call(ArchiveTopGames::class)->monthly();
+Schedule::call(ArchiveTopGames::class)->monthly();
 
