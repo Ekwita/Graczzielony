@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Public\Voting;
+namespace App\Http\Controllers\Public\Ranking;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreVoteRequest;

@@ -112,6 +112,7 @@ const submitForm = () => {
                             class="selected-thumbnail" />
                         <input :id="`game-${index}`" type="text" v-model="queries[index]" placeholder="Wpisz nazwę gry"
                             @input="fetchGames(index)" autocomplete="off" />
+                        <div v-if="isSearching[index]" class="spinner"></div>
                     </div>
 
                     <ul v-if="games[index].length" class="dropdown">
@@ -249,6 +250,25 @@ input[type="text"]:focus {
     height: 40px;
     object-fit: cover;
     border-radius: 5px;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 

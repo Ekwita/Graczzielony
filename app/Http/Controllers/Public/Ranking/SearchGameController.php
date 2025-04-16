@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Public\Voting;
+namespace App\Http\Controllers\Public\Ranking;
 
 use App\Http\Controllers\Controller;
 use App\Services\Public\Ranking\SearchGameService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class SearchGameController extends Controller
@@ -13,7 +14,7 @@ class SearchGameController extends Controller
         protected SearchGameService $searchService,
     ) {}
 
-    public function search(Request $request)
+    public function search(Request $request): ?JsonResponse
     {
         $query = trim($request->input('search', ''));
         $index = (int) $request->input('index', 0);

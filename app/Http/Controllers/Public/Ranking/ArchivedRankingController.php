@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Public\Ranking;
 
 use App\Http\Controllers\Controller;
-use App\Models\ArchivedGame;
 use App\Models\ArchivedRanking;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -19,7 +18,7 @@ class ArchivedRankingController extends Controller
         ]);
     }
 
-    public function show(int $id)
+    public function show(int $id): Response
     {
         $ranking = ArchivedRanking::with('games')->findOrFail($id);
 

@@ -10,9 +10,8 @@ const rankingsList = props.rankings;
 
 const formatMonth = (dateStr) => {
     const date = new Date(dateStr);
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${month}-${year}`;
+    const formatted = new Intl.DateTimeFormat('pl-PL', { month: 'long', year: 'numeric' }).format(date);
+    return formatted.charAt(0).toUpperCase() + formatted.slice(1);
 };
 
 const goToRanking = (id) => {
@@ -21,6 +20,7 @@ const goToRanking = (id) => {
 </script>
 
 <template>
+
     <Head title="Archiwalne rankingi" />
     <PageLayout>
         <div class="container">
@@ -30,7 +30,7 @@ const goToRanking = (id) => {
                 <div v-for="ranking in rankingsList" :key="ranking.id" class="tile" @click="goToRanking(ranking.id)">
                     <div class="tile-header">{{ formatMonth(ranking.month) }}</div>
                     <div class="tile-content">
-                        <div class="winner-title">{{ ranking.winner_name }}</div>
+                        <div class="winner-title">Zwycięzca: "{{ ranking.winner_name }}"</div>
                         <div class="winner-image">
                             <img :src="ranking.winner_image" alt="Game image" />
                         </div>
