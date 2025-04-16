@@ -1,5 +1,5 @@
 <script setup>
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import PageLayout from '@/layouts/blog/PageLayout.vue';
 import CountdownTimer from '@/components/CountdownTimer.vue';
 
@@ -26,7 +26,7 @@ defineProps({
               <th>Głosy</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody v-if="games.length">
             <tr v-for="game in games" :key="game.bgg_id" class="game-row">
               <td class="center">{{ game.place }}</td>
               <td class="game-info">
@@ -39,7 +39,13 @@ defineProps({
               <td class="center">{{ game.votes }}</td>
             </tr>
           </tbody>
-
+          <tbody v-else>
+            <tr>
+              <td colspan="4" class="center">W tym momencie nie zagłosowano na żadną grę.
+                <Link :href="route('vote.index')"><strong>Możesz być pierwszy</strong></Link>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>

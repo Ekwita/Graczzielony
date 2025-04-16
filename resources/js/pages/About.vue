@@ -28,7 +28,7 @@ import { Head } from '@inertiajs/vue3';
 
           <br>
           <br>
-          Poniżej znajdują się linki do moich projektów.
+          Poniżej znajdują się linki do repozytorium z moimi projektami.
 
         </p>
       </div>
@@ -72,8 +72,8 @@ import { Head } from '@inertiajs/vue3';
 }
 
 .profile-img {
-  width: 128px;
-  height: 128px;
+  width: 256px;
+  height: 256px;
   border-radius: 50%;
   border: 4px solid #e0e0e0;
   /* Szara ramka */

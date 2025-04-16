@@ -1,15 +1,15 @@
 <?php
 
+use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\Public\Ranking\ArchivedRankingController;
 use App\Http\Controllers\Public\Ranking\RankingController;
 use App\Http\Controllers\Public\Ranking\SearchGameController;
 use App\Http\Controllers\Public\Ranking\VoteController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Inertia\Response;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome');
-})->name('home');
+Route::get('/', [HomePageController::class, 'index'])->name('home');
 
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
@@ -30,7 +30,7 @@ Route::get('/ranking/archiwum/{id}', [ArchivedRankingController::class, 'show'])
 Route::inertia('/o-mnie', 'About')->name('about');
 
 // Fallback
-Route::fallback(function () {
+Route::fallback(function (): Response {
     return Inertia::render('NotFound');
 });
 
