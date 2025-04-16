@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\Public\Ranking\ArchivedRankingController;
 use App\Http\Controllers\Public\Ranking\RankingController;
-use App\Http\Controllers\Public\Voting\SearchGameController;
-use App\Http\Controllers\Public\Voting\VoteController;
+use App\Http\Controllers\Public\Ranking\SearchGameController;
+use App\Http\Controllers\Public\Ranking\VoteController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
