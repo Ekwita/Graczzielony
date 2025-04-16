@@ -10,9 +10,8 @@ const games = props.ranking.games;
 
 const formatMonth = (dateStr) => {
     const date = new Date(dateStr);
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${month}-${year}`;
+    const formatted = new Intl.DateTimeFormat('pl-PL', { month: 'long', year: 'numeric' }).format(date);
+    return formatted;
 };
 
 </script>
@@ -37,8 +36,8 @@ const formatMonth = (dateStr) => {
                     </thead>
                     <tbody>
                         <tr v-for="(game, index) in games" :key="game.bgg_id"
-                            :class="['game-row', { 'top-ranking': index < 3 }]">
-                            <td class="center">{{ index + 1 }}</td>
+                            :class="['game-row', { 'top-ranking': game.position === 1 }]">
+                            <td class="center">{{ game.position }}</td>
                             <td class="game-info">
                                 <a :href="game.hyperlink" target="_blank" class="game-link">
                                     <img :src="game.game_image" alt="Game image" class="game-image" />

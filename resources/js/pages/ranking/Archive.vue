@@ -30,7 +30,9 @@ const goToRanking = (id) => {
                 <div v-for="ranking in rankingsList" :key="ranking.id" class="tile" @click="goToRanking(ranking.id)">
                     <div class="tile-header">{{ formatMonth(ranking.month) }}</div>
                     <div class="tile-content">
-                        <div class="winner-title">Zwycięzca: "{{ ranking.winner_name }}"</div>
+                        <div class="winner-title">
+                            Zwycięzca{{ ranking.winner_name.includes(',') ? 'y' : '' }}: "{{ ranking.winner_name }}"
+                        </div>
                         <div class="winner-image">
                             <img :src="ranking.winner_image" alt="Game image" />
                         </div>
