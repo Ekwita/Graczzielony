@@ -15,7 +15,6 @@ const props = defineProps<{
 
 const recentWinners = props.recentWinners;
 
-console.log(recentWinners[0].games[0].hyperlink);
 
 const currentIndex = ref(0);
 let interval: number;
