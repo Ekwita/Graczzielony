@@ -43,7 +43,7 @@ onUnmounted(() => {
     <PageLayout>
         <div class="main-layout">
             <div class="left-column">
-                <h1>Hola wędrowcze!</h1>
+                <h1>Hola wędrowcze! To znowu ja.</h1>
                 <p>
                     Cieszę się, że zawitałeś w moje skromne progi. <strong>Gracz Zielony</strong> to mój mały projekt
                     aplikacji internetowej poświęconej grom planszowym. Na ten moment ma dwa cele:
