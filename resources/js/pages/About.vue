@@ -28,6 +28,16 @@ import { Head } from '@inertiajs/vue3';
 
           <br>
           <br>
+          W sierpniu 2025 roku stałem się członkiem zespołu niewielkiego Software House'u  - 
+          <a href="">Init.biz</a>
+           - z siedzibą w Staszowie.
+          Miałem przyjemność zdobyć tam swoje pierwsze komercyjne doświadczenie, szlifując swoje umiejętności jako backend juniro developer.
+          Dzięki pracy przy takich projektach jak: 
+          <a href="https://schoolofwok.co.uk/" target="_blank" rel="noopener noreferrer">School of Wok</a>, 
+          <a href="https://lyfeguard.com/" target="_blank" rel="noopener noreferrer">Lyfeguard</a> 
+          czy 
+          <a href="" target="_blank" rel="noopener noreferrer">SloGods</a>.
+          <br>
           Poniżej znajdują się linki do repozytorium z moimi projektami.
 
         </p>
