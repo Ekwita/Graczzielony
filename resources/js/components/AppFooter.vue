@@ -6,7 +6,7 @@
         <div class="info">
             <div class="bgg_logo">
                 <a href="https://boardgamegeek.com/" class="bgg_link" target="_blank" rel="noopener noreferrer">
-                    <img src="/img/BGGLogo.png" alt="BoardGameGeek Logo" class="logo" />
+                    <img src="/img/powered_by_BGG_02_MED.png" alt="BoardGameGeek Logo" class="logo" />
                 </a>
             </div>
             <div class="text">
@@ -44,6 +44,7 @@ footer {
     height: 40px;
     display: flex;
     align-items: center;
+    background-color: #fff  ;
 }
 
 .text {
