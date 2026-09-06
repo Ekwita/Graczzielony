@@ -4,19 +4,27 @@ namespace App\Services\Public\Ranking;
 
 use App\DTOs\GameDTO;
 use Illuminate\Support\Facades\Http;
+use Ekwita\BggPhpApiClient\HttpClient\HttpClient as BggApiClient;
 
 class SearchGameService
 {
+
+    public function __construct()
+    {
+        $this->client = new BggApiClient(env('BGG_API_KEY'));
+    }
+
     public function searchGames(string $query): array
     {
-        $searchXml = $this->loadXml("https://boardgamegeek.com/xmlapi2/search?query={$query}&type=boardgame");
+        $simpleXml = $this->client->search()->boardgame($query);
+        $foundGames = $simpleXml->item;
 
-        if (!$searchXml || !isset($searchXml->item)) {
+        if (count($foundGames) === 0) {
             return [];
         }
 
         $idNameMap = [];
-        foreach ($searchXml->item as $item) {
+        foreach ($foundGames as $item) {
             $id = (int) $item['id'];
             $name = (string) $item->name['value'];
             $idNameMap[$id] = $name;
@@ -24,13 +32,13 @@ class SearchGameService
 
         $games = [];
         foreach (array_chunk(array_keys($idNameMap), 20) as $chunk) {
-            $xml = $this->loadXml("https://boardgamegeek.com/xmlapi2/thing?id=" . implode(',', $chunk) . "&type=boardgame");
+            $xmlItem = $this->client->thing()->findById($chunk)->item;
 
-            if (!$xml || !isset($xml->item)) {
+            if (!$xmlItem) {
                 continue;
             }
 
-            foreach ($xml->item as $item) {
+            foreach ($xmlItem as $item) {
                 $id = (int) $item['id'];
                 $games[] = new GameDTO(
                     id: $id,
@@ -42,18 +50,5 @@ class SearchGameService
         }
 
         return $games;
-    }
-
-    private function loadXml(string $url): ?\SimpleXMLElement
-    {
-        $response = Http::get($url);
-
-        if ($response->failed()) {
-            return null;
-        }
-
-        $xml = simplexml_load_string($response->body()) ?: null;
-
-        return $xml;
     }
 }
