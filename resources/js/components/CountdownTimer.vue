@@ -62,6 +62,7 @@ onMounted(() => {
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #f9f9f9;
+    color: #333;
     padding: 16px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

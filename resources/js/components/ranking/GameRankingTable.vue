@@ -66,11 +66,13 @@ defineProps({
 
 .top-ranking {
     background-color: #d4edda;
+    color: #155724;
     font-weight: bold;
 }
 
 .game-row:hover {
     background: #f5f5f5;
+    color: #212529;
 }
 
 .center {

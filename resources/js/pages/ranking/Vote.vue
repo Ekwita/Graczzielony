@@ -179,6 +179,8 @@ input[type="text"] {
     font-size: 16px;
     border-radius: 6px;
     border: 1px solid #ccc;
+    background-color: #fff;
+    color: #212529;
     transition: border 0.2s;
     box-sizing: border-box;
 }
@@ -212,6 +214,7 @@ input[type="text"]:focus {
     border: 1px solid #ccc;
     border-radius: 6px;
     background: white;
+    color: #212529;
     max-height: 200px;
     overflow-y: auto;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -288,6 +291,7 @@ input[type="text"]:focus {
 
 .modal-content {
     background: white;
+    color: #212529;
     padding: 30px 50px;
     border-radius: 10px;
     text-align: center;
