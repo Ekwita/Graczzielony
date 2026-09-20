@@ -5,7 +5,7 @@ namespace App\Repositories\Public\Ranking;
 use App\Models\Game;
 use App\Models\Vote;
 
-class VoteReposiory
+class VoteRepository
 {
     public function create(array $voteData, Game $game, string $username): void
     {

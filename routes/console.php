@@ -10,6 +10,5 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 
-Schedule::call(ArchiveTopGames::class)->everyMinute();
 Schedule::call(ArchiveTopGames::class)->monthly();
 

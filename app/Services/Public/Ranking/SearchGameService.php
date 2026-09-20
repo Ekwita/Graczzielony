@@ -3,11 +3,11 @@
 namespace App\Services\Public\Ranking;
 
 use App\DTOs\GameDTO;
-use Illuminate\Support\Facades\Http;
 use Ekwita\BggPhpApiClient\HttpClient\HttpClient as BggApiClient;
 
 class SearchGameService
 {
+    protected BggApiClient $client;
 
     public function __construct()
     {
@@ -34,7 +34,7 @@ class SearchGameService
         foreach (array_chunk(array_keys($idNameMap), 20) as $chunk) {
             $xmlItem = $this->client->thing()->findById($chunk)->item;
 
-            if (!$xmlItem) {
+            if (! $xmlItem) {
                 continue;
             }
 

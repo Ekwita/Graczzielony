@@ -6,46 +6,48 @@ import CountdownTimer from '@/components/CountdownTimer.vue';
 import axios from 'axios';
 
 const username = ref('');
-const queries = ref(['', '', '']);
-const games = ref([[], [], []]);
-const selectedGames = ref([null, null, null]);
-const highlightedIndex = ref([null, null, null]);
-const isSearching = ref([false, false, false]);
-let searchTimeouts = [null, null, null];
+const slots = ref([
+    { query: '', results: [], selected: null, searching: false },
+    { query: '', results: [], selected: null, searching: false },
+    { query: '', results: [], selected: null, searching: false },
+]);
+const searchTimeouts = [null, null, null];
 
 const fetchGames = (index) => {
     clearTimeout(searchTimeouts[index]);
     searchTimeouts[index] = setTimeout(async () => {
-        const query = queries.value[index].trim();
+        const slot = slots.value[index];
+        const query = slot.query.trim();
         if (query.length < 3) {
-            games.value[index] = [];
+            slot.results = [];
             return;
         }
-        isSearching.value[index] = true;
+        slot.searching = true;
 
         try {
             const response = await axios.get('/search', { params: { search: query, index } });
             if (response.data.games) {
-                games.value[index] = response.data.games[index];
+                slot.results = response.data.games[index];
             }
         } catch (error) {
             console.error("Error fetching games:", error);
         } finally {
-            isSearching.value[index] = false;
+            slot.searching = false;
         }
     }, 1000);
 };
 
 const selectGame = (game, index) => {
-    selectedGames.value[index] = game;
-    queries.value[index] = game.name;
-    games.value[index] = [];
+    const slot = slots.value[index];
+    slot.selected = game;
+    slot.query = game.name;
+    slot.results = [];
 };
 
 const isFormValid = computed(() => {
-    if (!username.value || selectedGames.value.some(game => game === null)) return false;
+    if (!username.value || slots.value.some(slot => slot.selected === null)) return false;
 
-    const ids = selectedGames.value.map(game => game?.id);
+    const ids = slots.value.map(slot => slot.selected?.id);
     const uniqueIds = new Set(ids);
 
     return ids.length === uniqueIds.size;
@@ -65,11 +67,11 @@ const submitForm = () => {
     }
 
     form.username = username.value;
-    form.votes = selectedGames.value.map((game, idx) => ({
-        id: game?.id ?? null,
-        name: game?.name ?? '',
+    form.votes = slots.value.map((slot, idx) => ({
+        id: slot.selected?.id ?? null,
+        name: slot.selected?.name ?? '',
         points: 3 - idx,
-        image: game?.image ?? '',
+        image: slot.selected?.image ?? '',
     }));
 
     form.post(route('vote.store'), {
@@ -105,19 +107,18 @@ const submitForm = () => {
                     <input id="username" type="text" v-model="username" required />
                 </div>
 
-                <div v-for="(query, index) in queries" :key="index" class="form-group">
+                <div v-for="(slot, index) in slots" :key="index" class="form-group">
                     <label :for="`game-${index}`">Gra za {{ 3 - index }} pkt:</label>
                     <div class="game-selection">
-                        <img v-if="selectedGames[index]?.image" :src="selectedGames[index].image" alt="thumbnail"
+                        <img v-if="slot.selected?.image" :src="slot.selected.image" alt="thumbnail"
                             class="selected-thumbnail" />
-                        <input :id="`game-${index}`" type="text" v-model="queries[index]" placeholder="Wpisz nazwę gry"
+                        <input :id="`game-${index}`" type="text" v-model="slot.query" placeholder="Wpisz nazwę gry"
                             @input="fetchGames(index)" autocomplete="off" />
-                        <div v-if="isSearching[index]" class="spinner"></div>
+                        <div v-if="slot.searching" class="spinner"></div>
                     </div>
 
-                    <ul v-if="games[index].length" class="dropdown">
-                        <li v-for="(game, i) in games[index]" :key="game.id"
-                            :class="{ highlighted: i === highlightedIndex[index] }" @click="selectGame(game, index)">
+                    <ul v-if="slot.results.length" class="dropdown">
+                        <li v-for="game in slot.results" :key="game.id" @click="selectGame(game, index)">
                             <img v-if="game.image" :src="game.image" alt="thumbnail" class="thumbnail" />
                             <span>{{ game.name }} ({{ game.year }})</span>
                         </li>
@@ -225,8 +226,7 @@ input[type="text"]:focus {
     transition: background 0.2s;
 }
 
-.dropdown li:hover,
-.dropdown li.highlighted {
+.dropdown li:hover {
     background: #f5f5f5;
 }
 

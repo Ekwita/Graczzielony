@@ -1,18 +1,13 @@
 <script setup>
 import { Head, router } from '@inertiajs/vue3';
 import PageLayout from '@/layouts/blog/PageLayout.vue';
+import { formatMonth } from '@/composables/useMonthFormatter';
 
 const props = defineProps({
     rankings: Object,
 });
 
 const rankingsList = props.rankings;
-
-const formatMonth = (dateStr) => {
-    const date = new Date(dateStr);
-    const formatted = new Intl.DateTimeFormat('pl-PL', { month: 'long', year: 'numeric' }).format(date);
-    return formatted.charAt(0).toUpperCase() + formatted.slice(1);
-};
 
 const goToRanking = (id) => {
     router.visit(`/ranking/archiwum/${id}`);
@@ -28,7 +23,7 @@ const goToRanking = (id) => {
 
             <div class="tiles-container">
                 <div v-for="ranking in rankingsList" :key="ranking.id" class="tile" @click="goToRanking(ranking.id)">
-                    <div class="tile-header">{{ formatMonth(ranking.month) }}</div>
+                    <div class="tile-header">{{ formatMonth(ranking.month, { capitalize: true }) }}</div>
                     <div class="tile-content">
                         <div class="winner-title">
                             Zwycięzca{{ ranking.winner_name.includes(',') ? 'y' : '' }}: "{{ ranking.winner_name }}"

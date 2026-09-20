@@ -7,51 +7,26 @@ use Illuminate\Database\Eloquent\Collection;
 
 class GamesRankingService
 {
+    public function __construct(
+        protected RankingCalculator $rankingCalculator,
+    ) {}
+
     public function showRanking(): array
     {
-        $games = $this->orderGames();
+        $ranked = $this->rankingCalculator->rank($this->orderedGames());
+        $visible = $this->rankingCalculator->limitToTopPlaces($ranked, 10);
 
-        $rankedGames = [];
-        $currentPlace = 1;
-        $sameRankCount = 1;
-        $lastVisiblePlace = 0;
-
-        foreach ($games as $index => $game) {
-            if ($index > 0) {
-                $prev = $games[$index - 1];
-
-                if ($game->score === $prev->score && $game->votes === $prev->votes) {
-                    $place = $currentPlace;
-                    $sameRankCount++;
-                } else {
-                    $currentPlace += $sameRankCount;
-                    $place = $currentPlace;
-                    $sameRankCount = 1;
-                }
-            } else {
-                $place = $currentPlace;
-            }
-
-            if ($place > 10 && $place !== $lastVisiblePlace) {
-                break;
-            }
-
-            $rankedGames[] = [
-                'place' => $place,
-                'name' => $game->name,
-                'score' => $game->score,
-                'votes' => $game->votes,
-                'image' => $game->image,
-                'hyperlink' => $game->hyperlink,
-            ];
-
-            $lastVisiblePlace = $place;
-        }
-
-        return $rankedGames;
+        return $visible->map(fn (array $entry) => [
+            'place' => $entry['place'],
+            'name' => $entry['game']->name,
+            'score' => $entry['game']->score,
+            'votes' => $entry['game']->votes,
+            'image' => $entry['game']->image,
+            'hyperlink' => $entry['game']->hyperlink,
+        ])->all();
     }
 
-    private function orderGames(): Collection
+    private function orderedGames(): Collection
     {
         return Game::where('score', '>', 0)
             ->where('votes', '>', 0)

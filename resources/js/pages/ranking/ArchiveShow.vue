@@ -1,19 +1,23 @@
 <script setup>
+import { computed } from 'vue';
 import { Head } from '@inertiajs/vue3';
 import PageLayout from '@/layouts/blog/PageLayout.vue';
+import GameRankingTable from '@/components/ranking/GameRankingTable.vue';
+import { formatMonth } from '@/composables/useMonthFormatter';
 
 const props = defineProps({
     ranking: Object,
 });
 
-const games = props.ranking.games;
-
-const formatMonth = (dateStr) => {
-    const date = new Date(dateStr);
-    const formatted = new Intl.DateTimeFormat('pl-PL', { month: 'long', year: 'numeric' }).format(date);
-    return formatted;
-};
-
+const rows = computed(() => props.ranking.games.map((game) => ({
+    place: game.position,
+    name: game.game_name,
+    image: game.game_image,
+    hyperlink: game.hyperlink,
+    score: game.score,
+    votes: game.votes,
+    highlight: game.position <= 3,
+})));
 </script>
 
 <template>
@@ -24,32 +28,7 @@ const formatMonth = (dateStr) => {
         <div class="container">
             <h1 class="title">Top 10 gier za {{ formatMonth(ranking.month) }}</h1>
 
-            <div class="table-container">
-                <table class="game-table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Nazwa</th>
-                            <th>Ocena</th>
-                            <th>Głosy</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(game, index) in games" :key="game.bgg_id"
-                            :class="['game-row', { 'top-ranking': game.position <= 3 }]">
-                            <td class="center">{{ game.position }}</td>
-                            <td class="game-info">
-                                <a :href="game.hyperlink" target="_blank" class="game-link">
-                                    <img :src="game.game_image" alt="Game image" class="game-image" />
-                                    <span>{{ game.game_name }}</span>
-                                </a>
-                            </td>
-                            <td class="center">{{ game.score }}</td>
-                            <td class="center">{{ game.votes }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <GameRankingTable :rows="rows" />
         </div>
     </PageLayout>
 </template>
@@ -67,68 +46,5 @@ const formatMonth = (dateStr) => {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 15px;
-}
-
-.table-container {
-    overflow-x: auto;
-}
-
-.game-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.game-table th,
-.game-table td {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-}
-
-.game-table th {
-    background: #444;
-    color: white;
-    text-align: left;
-}
-
-.top-ranking {
-    background-color: #d4edda;
-    font-weight: bold;
-}
-
-.game-row:hover {
-    background: #f5f5f5;
-}
-
-.center {
-    text-align: center;
-}
-
-.game-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.game-link {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    text-decoration: none;
-    color: inherit;
-    width: 100%;
-    height: 100%;
-    padding: 10px 0;
-}
-
-.game-image {
-    width: 80px;
-    height: 80px;
-    border-radius: 8px;
-    object-fit: cover;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.game-link:hover {
-    text-decoration: underline;
 }
 </style>

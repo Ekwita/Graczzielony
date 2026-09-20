@@ -12,7 +12,7 @@ class GameRepository
             ['bgg_id' => $voteData['id']],
             [
                 'name' => $voteData['name'],
-                'hyperlink' => 'https://boardgamegeek.com/boardgame/' . $voteData['id'],
+                'hyperlink' => 'https://boardgamegeek.com/boardgame/'.$voteData['id'],
                 'score' => 0,
                 'image' => $voteData['image'],
                 'votes' => 0,

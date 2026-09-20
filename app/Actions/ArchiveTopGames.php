@@ -6,61 +6,35 @@ use App\Models\ArchivedGame;
 use App\Models\ArchivedRanking;
 use App\Models\Game;
 use App\Models\Vote;
+use App\Services\Public\Ranking\RankingCalculator;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 
 class ArchiveTopGames
 {
+    public function __construct(
+        protected RankingCalculator $rankingCalculator,
+    ) {}
+
     public function __invoke(): void
     {
-        $now = Carbon::now();
-        $month = $now->subMonth()->format('Y-m');
+        $month = Carbon::now()->subMonth()->format('Y-m');
 
-        // Wyciągnięcie wszystkich gier z wynikiem > 0, posortowane
-        $games = Game::where('score', '>', 0)
-            ->orderByDesc('score')
-            ->orderByDesc('votes')
-            ->get();
+        $ranked = $this->rankingCalculator->rank($this->orderedGames());
+        $topRanked = $this->rankingCalculator->limitToTopPlaces($ranked, 10);
 
-        // Ustalenie pozycji z uwzględnieniem remisów
-        $rankedGames = [];
-        $position = 1;
-        $lastScore = null;
-        $lastVotes = null;
-        $count = 0;
+        $winners = $ranked->where('place', 1)->pluck('game');
 
-        foreach ($games as $game) {
-            $count++;
-            if ($lastScore !== null && ($game->score !== $lastScore || $game->votes !== $lastVotes)) {
-                $position = $count;
-            }
-
-            $rankedGames[] = [
-                'game' => $game,
-                'position' => $position,
-            ];
-
-            $lastScore = $game->score;
-            $lastVotes = $game->votes;
-        }
-
-        // Wyznaczenie zwycięzców (pozycja == 1)
-        $winners = collect($rankedGames)->filter(fn($g) => $g['position'] === 1)->pluck('game');
-
-        $newArchivedRanking = ArchivedRanking::create([
+        $archivedRanking = ArchivedRanking::create([
             'winner_name' => $winners->pluck('name')->join(', '),
-            'winner_image' => $winners->first()->image, // np. tylko jeden obrazek
+            'winner_image' => $winners->first()?->image,
             'month' => $month,
         ]);
 
-        // Tylko Top 10 miejsc (nie gier!), uwzględniając remisy
-        $top10Positions = collect($rankedGames)->unique('position')->take(10)->pluck('position');
-
-        foreach ($rankedGames as $entry) {
-            if (!$top10Positions->contains($entry['position'])) continue;
-
+        foreach ($topRanked as $entry) {
             ArchivedGame::create([
-                'ranking_id' => $newArchivedRanking->id,
-                'position' => $entry['position'],
+                'ranking_id' => $archivedRanking->id,
+                'position' => $entry['place'],
                 'game_name' => $entry['game']->name,
                 'game_image' => $entry['game']->image,
                 'bgg_id' => $entry['game']->bgg_id,
@@ -73,7 +47,15 @@ class ArchiveTopGames
         $this->clearData();
     }
 
-    private function clearData()
+    private function orderedGames(): Collection
+    {
+        return Game::where('score', '>', 0)
+            ->orderByDesc('score')
+            ->orderByDesc('votes')
+            ->get();
+    }
+
+    private function clearData(): void
     {
         Vote::truncate();
         Game::query()->update([
