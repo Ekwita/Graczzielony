@@ -62,37 +62,42 @@ onMounted(() => {
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #f9f9f9;
-    padding: 20px;
+    padding: 16px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 40%;
-    margin: auto;
-    margin-top: 30px;
-
+    max-width: 320px;
+    width: 100%;
+    margin: 30px auto 0;
+    box-sizing: border-box;
 }
 
 .time-display {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
     margin-top: 20px;
+    width: 100%;
 }
 
 .time-item {
-    font-size: 24px;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .time-number {
-    font-size: 36px;
+    font-size: clamp(20px, 7vw, 36px);
     font-weight: bold;
     color: #333;
 }
 
 .time-label {
-    font-size: 14px;
+    font-size: 12px;
     color: #888;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 </style>

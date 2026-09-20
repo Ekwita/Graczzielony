@@ -34,7 +34,7 @@ footer {
 
 .info {
     display: flex;
-    align-items: left;
+    align-items: center;
     width: 100%;
     padding: 5px;
 }
@@ -69,5 +69,26 @@ footer {
 .bgg_link:hover {
     text-decoration: none;
     color: #ffa500;
+}
+
+@media (max-width: 600px) {
+    footer {
+        padding: 15px;
+    }
+
+    .info {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .bgg_logo {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .text {
+        max-width: 100%;
+        margin-left: 0;
+    }
 }
 </style>

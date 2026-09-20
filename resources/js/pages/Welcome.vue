@@ -152,4 +152,24 @@ h1 {
         opacity: 1;
     }
 }
+
+@media (max-width: 900px) {
+    .main-layout {
+        flex-direction: column;
+        margin: 20px auto;
+        padding: 16px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .right-column {
+        justify-content: center;
+    }
+
+    .carousel {
+        max-width: 100%;
+    }
+}
 </style>

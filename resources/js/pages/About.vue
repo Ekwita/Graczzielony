@@ -151,4 +151,17 @@ import { Head } from '@inertiajs/vue3';
 .about-description p:last-child {
   margin-bottom: 0;
 }
+
+@media (max-width: 700px) {
+  .repo-tiles {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 400px) {
+  .profile-img {
+    width: 180px;
+    height: 180px;
+  }
+}
 </style>

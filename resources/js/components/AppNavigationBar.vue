@@ -1,55 +1,83 @@
 <script setup>
 
-import { ref } from "vue";
+import { ref, onMounted, onBeforeUnmount } from "vue";
 import { Link } from "@inertiajs/vue3";
-const isRankingOpen = ref(false);
-const isBlogOpen = ref(false);
+
+const openMenu = ref(null);
+const isMobileMenuOpen = ref(false);
+
+const toggleMenu = (menu) => {
+    openMenu.value = openMenu.value === menu ? null : menu;
+};
+
+const closeMenus = () => {
+    openMenu.value = null;
+};
+
+const closeAll = () => {
+    openMenu.value = null;
+    isMobileMenuOpen.value = false;
+};
+
+onMounted(() => document.addEventListener('click', closeMenus));
+onBeforeUnmount(() => document.removeEventListener('click', closeMenus));
 
 </script>
 
 
 <template>
     <nav class="navigation-bar">
-        <ul class="nav-list">
+        <div class="nav-bar-top">
+            <button type="button" class="menu-toggle" @click.stop="isMobileMenuOpen = !isMobileMenuOpen"
+                :aria-expanded="isMobileMenuOpen" aria-label="Menu">
+                <span class="menu-toggle-bar"></span>
+                <span class="menu-toggle-bar"></span>
+                <span class="menu-toggle-bar"></span>
+            </button>
+        </div>
+        <ul class="nav-list" :class="{ 'nav-list-open': isMobileMenuOpen }">
             <!-- Home -->
             <li class="nav-item">
-                <Link :href="route('home')" class="nav-link" active-class="active">Strona główna</Link>
+                <Link :href="route('home')" class="nav-link" active-class="active" @click="closeAll">Strona główna</Link>
             </li>
             <!-- Ranking -->
-            <li class="nav-item relative" @mouseenter="isRankingOpen = true" @mouseleave="isRankingOpen = false">
-                <button class="nav-link">Ranking</button>
-                <ul v-if="isRankingOpen" class="dropdown-menu">
+            <li class="nav-item relative" @click.stop>
+                <button type="button" class="nav-link" @click="toggleMenu('ranking')">Ranking</button>
+                <ul v-if="openMenu === 'ranking'" class="dropdown-menu">
                     <li class="nav-item">
-                        <Link :href="route('vote.index')" class="nav-link" active-class="active">Wybierz grę miesiąca
+                        <Link :href="route('vote.index')" class="nav-link" active-class="active" @click="closeAll">
+                            Wybierz grę miesiąca
                         </Link>
                     </li>
                     <li class="nav-item">
-                        <Link :href="route('ranking.index')" class="nav-link" active-class="active">Aktualny ranking
+                        <Link :href="route('ranking.index')" class="nav-link" active-class="active" @click="closeAll">
+                            Aktualny ranking
                         </Link>
                     </li>
                     <li class="nav-item">
-                        <Link href="/ranking/archiwum" class="nav-link" active-class="active">Archiwalne rankingi
+                        <Link href="/ranking/archiwum" class="nav-link" active-class="active" @click="closeAll">
+                            Archiwalne rankingi
                         </Link>
                     </li>
                 </ul>
             </li>
 
             <!-- Blog -->
-            <li class="nav-item relative" @mouseenter="isBlogOpen = true" @mouseleave="isBlogOpen = false">
-                <button class="nav-link">Blog</button>
-                <ul v-if="isBlogOpen" class="dropdown-menu">
+            <li class="nav-item relative" @click.stop>
+                <button type="button" class="nav-link" @click="toggleMenu('blog')">Blog</button>
+                <ul v-if="openMenu === 'blog'" class="dropdown-menu">
                     <li class="nav-item">
-                        <Link href="/blog/recenzje" class="nav-link" active-class="active">Recenzje</Link>
+                        <Link href="/blog/recenzje" class="nav-link" active-class="active" @click="closeAll">Recenzje</Link>
                     </li>
                     <li class="nav-item">
-                        <Link href="/blog/opinie" class="nav-link" active-class="active">Niepopularne opinie</Link>
+                        <Link href="/blog/opinie" class="nav-link" active-class="active" @click="closeAll">Niepopularne opinie</Link>
                     </li>
                 </ul>
             </li>
 
             <!-- About -->
             <li class="nav-item">
-                <Link :href="route('about')" class="nav-link" active-class="active">O mnie</Link>
+                <Link :href="route('about')" class="nav-link" active-class="active" @click="closeAll">O mnie</Link>
             </li>
         </ul>
     </nav>
@@ -62,8 +90,31 @@ const isBlogOpen = ref(false);
     padding: 10px;
 }
 
+.nav-bar-top {
+    display: none;
+    justify-content: flex-end;
+}
+
+.menu-toggle {
+    background: transparent;
+    border: none;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.menu-toggle-bar {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: white;
+}
+
 .nav-list {
     display: flex;
+    flex-wrap: wrap;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -79,6 +130,10 @@ const isBlogOpen = ref(false);
     text-decoration: none;
     padding: 10px;
     display: block;
+    background: transparent;
+    border: none;
+    font-size: inherit;
+    cursor: pointer;
 }
 
 .nav-link:hover {
@@ -95,6 +150,7 @@ const isBlogOpen = ref(false);
     list-style: none;
     padding: 5px 0;
     min-width: 200px;
+    max-width: calc(100vw - 20px);
     z-index: 100;
 }
 
@@ -110,5 +166,42 @@ const isBlogOpen = ref(false);
 
 .dropdown-menu .nav-link:hover {
     background: #f0f0f0;
+}
+
+@media (max-width: 700px) {
+    .nav-bar-top {
+        display: flex;
+    }
+
+    .nav-list {
+        display: none;
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    .nav-list-open {
+        display: flex;
+    }
+
+    .nav-item {
+        margin-right: 0;
+    }
+
+    .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        background: #444;
+        min-width: 0;
+        max-width: none;
+        margin-left: 10px;
+    }
+
+    .dropdown-menu .nav-link {
+        color: white;
+    }
+
+    .dropdown-menu .nav-link:hover {
+        background: #555;
+    }
 }
 </style>

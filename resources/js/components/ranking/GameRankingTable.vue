@@ -105,4 +105,25 @@ defineProps({
 .game-link:hover {
     text-decoration: underline;
 }
+
+@media (max-width: 480px) {
+    .game-table th,
+    .game-table td {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .game-info {
+        gap: 8px;
+    }
+
+    .game-link {
+        gap: 8px;
+    }
+
+    .game-image {
+        width: 48px;
+        height: 48px;
+    }
+}
 </style>

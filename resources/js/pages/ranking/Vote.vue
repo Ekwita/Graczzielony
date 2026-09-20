@@ -293,6 +293,8 @@ input[type="text"]:focus {
     text-align: center;
     animation: pop-in 0.3s ease-out;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    max-width: 90%;
+    box-sizing: border-box;
 }
 
 .checkmark {
